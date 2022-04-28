@@ -24,6 +24,7 @@ class register(models.Model):
 	
 
 class addrequest(models.Model):
+	user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
 	name = models.CharField(max_length=255)
 	email = models.CharField(max_length=255)
 	Date_Time = models.CharField(max_length=255)
@@ -35,14 +36,14 @@ class addrequest(models.Model):
 	urgency = models.CharField(max_length=255)
 
 class givework(models.Model):
-	user= models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
+	user = models.ForeignKey(register, on_delete=models.DO_NOTHING,related_name='registeruser',null=True, blank=True)
 	work = models.CharField(max_length=255)
 	startdate = models.DateField(max_length=255)
 	enddate = models.DateField(max_length=255)
 	status = models.CharField(max_length=255 ,null=True, blank=True)
 
 	# def __str__(self):
-    #     	return self.firstname
+    #     	return self.user
 
 class addperson(models.Model):
 	name = models.CharField(max_length=255)
@@ -81,12 +82,19 @@ class packing(models.Model):
 	quantity = models.CharField(max_length=255)
 
 class repairing(models.Model):
-	product = models.CharField(max_length=255)
-	quantity = models.CharField(max_length=255)
-	amount = models.CharField(max_length=255)
+	user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
+	work = models.CharField(max_length=255)
+	payment = models.CharField(max_length=255)
+	date = models.DateField(max_length=255,null=True, blank=True)
 
 class sales(models.Model):
 	name = models.CharField(max_length=255)
 	date = models.DateField(max_length=255)
 	product = models.CharField(max_length=255)
 	amount = models.CharField(max_length=255)
+
+class contactus(models.Model):
+	name = models.CharField(max_length=255)
+	email = models.EmailField(max_length=255)
+	subject = models.CharField(max_length=255)
+	message = models.CharField(max_length=255)

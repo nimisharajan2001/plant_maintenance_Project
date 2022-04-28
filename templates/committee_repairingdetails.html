@@ -100,7 +100,15 @@
                         </tr>
                       </thead>
                       <tbody>
+                        {% for i in var %}
                         <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{i.work}}</td>
+                          <td>{{i.date|date:"d-m-Y"}}</td>
+                          <td>{{i.payment}}</td>
+                        </tr>
+                        {% endfor %}
+                        <!-- <tr>
                           <td>1</td>
                           <td>abc</td>
                           <td>03-04-2022</td>
@@ -117,7 +125,7 @@
                           <td>ghf</td>
                           <td>16-03-2022</td>
                           <td>12100</td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>

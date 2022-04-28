@@ -150,7 +150,7 @@
                     <label for="first_name">Name</label>
                   </div>
                   <div class="col-md-10 form-group">
-                    <select class="form-control" required name="name">
+                    <select class="form-control"  name="name" id="name" required>
                       <option selected="true" disabled="disabled" value="">-Not Selected-</option>
                       {% for n in mem %}
                       <option value="{{i.id}}">{{n.firstname}}</option>

@@ -104,7 +104,7 @@
                       <tr>
                         <td>{{forloop.counter}}</td>
                         <td>{{i.user}}</td>
-                        <td>{{i.date}}</td>
+                        <td>{{i.date|date:"d-m-Y"}}</td>
                         <td>{{i.status}}</td>
                       </tr>
                       {% endfor %}

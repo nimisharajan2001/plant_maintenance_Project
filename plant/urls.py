@@ -14,6 +14,9 @@ urlpatterns = [
     re_path(r'^reg$', views.reg, name='reg'),
     re_path(r'^registration$', views.registration, name='registration'),
     re_path(r'^pwd$', views.pwd, name='pwd'),
+    re_path(r'^reset_password$', views.reset_password, name='reset_password'),
+
+    #-----------------client--------------------
     re_path(r'^index$', views.index, name='index'),
     re_path(r'^about$', views.about, name='about'),
     re_path(r'^services$', views.services, name='services'),

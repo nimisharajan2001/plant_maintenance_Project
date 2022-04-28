@@ -1,8 +1,12 @@
+import random
+from django.conf import settings
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import authenticate
+from plant.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
 
 
 def log(request):
@@ -61,6 +65,33 @@ def registration(request):
         return render(request, 'reg.html', {'msg_success': msg_success})
     return render(request,'reg.html')
 
+#**********Reset Password**********
+def reset_password(request):
+    if request.method == "POST":
+        email_id = request.POST.get('email')
+        access_user_data = register.objects.filter(
+            email=email_id).exists()
+        if access_user_data:
+            _user = register.objects.filter(email=email_id)
+            password = random.SystemRandom().randint(100000, 999999)
+            print(password)
+            _user.password = password
+            subject =' your authentication data updated'
+            message = 'Password Reset Successfully\n\nYour login details are below\n\nUsername : ' + str(email_id) + '\n\nPassword : ' + str(password) + \
+                '\n\nYou can login this details\n\nNote: This is a system generated email, do not reply to this email id'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email_id, ]
+            send_mail(subject, message, email_from,
+                      recipient_list, fail_silently=True)
+
+            # _user.save()
+            msg_success = "Password Reset successfully check your mail new password"
+            return render(request, 'pwd.html', {'msg_success': msg_success})
+        else:
+            msg_error = "This email does not exist  "
+            return render(request, 'pwd.html', {'msg_error': msg_error})
+
+    return render(request,'pwd.html')
 
 
 def pwd(request):
@@ -129,6 +160,13 @@ def contact(request):
         else:
             return redirect('/')
         mem = register.objects.filter(id=c_id)
+        if request.method == 'POST':
+            c1 = request.POST['name']
+            c2 = request.POST['email']
+            c3 = request.POST['subject']
+            c4 = request.POST['message']
+            cnt = contactus( name = c1,email = c2,subject = c3,message = c4)
+            cnt.save()
         return render(request,'contact.html',{'mem':mem})
     else:
         return redirect('/')
@@ -164,7 +202,7 @@ def reqsave(request):
             print(s1,s4)
             print(s9,s5)
             ab = addrequest(name = s1,email = s3,Date_Time = s2,phone = s4,
-                req_details = s5,location = s6,category = s7,completion_date = s8,urgency = s9)
+                req_details = s5,location = s6,category = s7,completion_date = s8,urgency = s9,user_id = c_id)
             ab.save()
             print(s7)
             return render(request,'request.html')
@@ -190,7 +228,8 @@ def show(request):
         else:
             return redirect('/')
         mem = register.objects.filter(id=c_id)
-        return render(request,'show.html',{'mem':mem})
+        var = addrequest.objects.filter(user_id = c_id).order_by('-id')
+        return render(request,'show.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -243,7 +282,7 @@ def owner_allotworkorder(request):
             g2 = request.POST['work']
             g3 = request.POST['start']
             g4 = request.POST['end']
-            print(g1,g3)
+            print(g1,g3,g4,g2)
             work = givework( user_id = g1,work = g2,startdate = g3,enddate = g4)
             work.save()
             m="Give work Successfully"
@@ -436,6 +475,7 @@ def committee_repairingdetails(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=s_id)
-        return render(request,'committee_repairingdetails.html',{'mem1':mem1})
+        var = repairing.objects.filter(user_id = s_id).order_by('-id')
+        return render(request,'committee_repairingdetails.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
