@@ -31,6 +31,8 @@ urlpatterns = [
     
     #-----------------Owner Module--------------------
     re_path(r'^owner_dashboard$', views.owner_dashboard, name='owner_dashboard'),
+    re_path(r'^owner_messages$', views.owner_messages, name='owner_messages'),
+    re_path(r'^owner_messages_replay/(?P<id>\d+)$', views.owner_messages_replay,name='owner_messages_replay'),
     re_path(r'^owner_addperson$', views.owner_addperson, name='owner_addperson'),
     re_path(r'^owner_allotworkorder$', views.owner_allotworkorder, name='owner_allotworkorder'),
     re_path(r'^owner_addvendors$', views.owner_addvendors, name='owner_addvendors'),

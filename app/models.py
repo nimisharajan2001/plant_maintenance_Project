@@ -98,3 +98,4 @@ class contactus(models.Model):
 	email = models.EmailField(max_length=255)
 	subject = models.CharField(max_length=255)
 	message = models.CharField(max_length=255)
+	replay = models.CharField(max_length=255,null=True, blank=True)

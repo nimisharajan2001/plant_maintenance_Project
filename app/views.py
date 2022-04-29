@@ -69,6 +69,7 @@ def registration(request):
 def reset_password(request):
     if request.method == "POST":
         email_id = request.POST.get('email')
+        # email_id = request.POST['email']
         access_user_data = register.objects.filter(
             email=email_id).exists()
         if access_user_data:
@@ -84,7 +85,7 @@ def reset_password(request):
             send_mail(subject, message, email_from,
                       recipient_list, fail_silently=True)
 
-            # _user.save()
+            _user.save()
             msg_success = "Password Reset successfully check your mail new password"
             return render(request, 'pwd.html', {'msg_success': msg_success})
         else:
@@ -249,6 +250,32 @@ def owner_dashboard(request):
     else:
         return redirect('/')
 
+def owner_messages(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=SAdm_id)
+        var = contactus.objects.all().order_by('-id')
+        return render(request,'owner_messages.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/') 
+
+def owner_messages_replay(request,id):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=SAdm_id)
+        if request.method == 'POST':
+            msg=request.POST.get('reply')
+            pro_sts = contactus.objects.filter(id=id).update(replay = msg)
+        return redirect('owner_messages')
+    else:
+        return redirect('/')      
+
 def owner_addperson(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
@@ -263,6 +290,8 @@ def owner_addperson(request):
             a4 = request.POST['address']
             add = addperson( name = a1,email = a2,phone = a3,address = a4)
             add.save()
+            msg_success = "Added successfull"
+            return render(request, 'owner_addperson.html', {'msg_success': msg_success})
         return render(request,'owner_addperson.html',{'owner':owner})
     else:
         return redirect('/')

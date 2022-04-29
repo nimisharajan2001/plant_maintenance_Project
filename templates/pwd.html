@@ -24,7 +24,7 @@
                   <p>You can reset your password here.</p>
                   <div class="panel-body">
     
-                    <form id="register-form" autocomplete="off" class="form" action="{% url 'reset_password' %}" method="post">
+                    <form id="register-form" autocomplete="off" class="form"  method="post">
                       {% csrf_token %}
                       <div class="form-group">
                         <div class="input-group">
