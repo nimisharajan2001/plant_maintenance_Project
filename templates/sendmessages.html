@@ -50,15 +50,15 @@
       </div>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a  class="active" href="{% url 'owner_dashboard' %}">Dashboard</a></li>
-          <li><a href="{% url 'owner_addperson' %}">Add Person</a></li>
-          <li><a href="{% url 'owner_allotworkorder' %}">Allot work order</a></li>
-          <li><a href="{% url 'owner_addvendors' %}">Add Vendors</a></li>
-          <li><a href="{% url 'owner_purchaseorder' %}">Purchase order</a></li>
-          <li><a href="{% url 'owner_salesorder' %}">View Sales order</a></li>
-          <li><a href="{% url 'owner_reports' %}">Reports</a></li>
-        </ul>
+            <ul>
+                <li><a class="" href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'request' %}">Request</a></li>
+                <li><a class="active" href="{% url 'contact' %}">Contact Us</a></li>
+            </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
@@ -72,10 +72,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Messages</h2>
+          <h2>Send Messages</h2>
           <ol>
-            <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
-            <li>Messages</li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li>Send Messages</li>
           </ol>
         </div>
 
@@ -86,141 +86,46 @@
     <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
       <div class="container">
         <div class="row">
-            <div class="col-md-12">
-              <div class="content-panel">
-                <h4 class="mb-3"><i class="fa fa-angle-right"></i> Messages</h4>
-                
-                <table class="table table-responsive table-bordered">
-                  <thead>
-                    <tr>
-                      <th>SlNo</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Subject</th>
-                      <th>Message</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for i in var %}
-                    <tr>
-                        <td>{{forloop.counter}}</td>
-                        <td>{{i.name}}</td>
-                        <td>{{i.email}}</td>
-                        <td>{{i.subject}}</td>
-                        <td>{{i.message}}</td>
-                        <td> 
-                            {% if i.replay == NULL %}
-                            <a href="">
-                                <div class="btn btn-outline-warning" data-toggle="modal"
-                                    data-target="#myModal{{i.id}}"></a>
-                                    <i class="mdi mdi-close"></i>&nbsp; Reply
-                            </div>
-                            {% else %}
-                            {{i.replay}}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>Aswin</td>
-                      <td>01-04-2022</td>
-                      <td>abc</td>
-                      <td>500</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Rahul</td>
-                      <td>21-03-2022</td>
-                      <td>cbh</td>
-                      <td>740</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Soorya</td>
-                      <td>18-03-2022</td>
-                      <td>ghf</td>
-                      <td>460</td>
-                    </tr> -->
-                  </tbody>
-                </table>
-              </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="content-panel">
+                    <h4 class="mb-3"><i class="fa fa-angle-right"></i> Packing Details</h4>
+                    
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr>
+                              <th>SlNo</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Subject</th>
+                              <th>Message</th>
+                              <th>Replay</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for i in var %}
+                                {% if i.replay != NULL %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{i.name}}</td>
+                                        <td>{{i.email}}</td>
+                                        <td>{{i.subject}}</td>
+                                        <td>{{i.message}}</td>
+                                        <td>{{i.replay}}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
             </div>
-        </div>
+            
+           
         
 
       </div>
     </section><!-- End Contact Section -->
-
-    
-{% for i in var %}
-<div class="modal fade" id="myModal{{i.id}}" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" style="color: #0d2735;">Reply</h4>
-            <button type="button" class="close" data-dismiss="modal" style="color: white; background-color: #0d2735;">&times;</button>
-        </div>
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <form action="{% url 'owner_messages_replay' i.id %}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row p-3">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-                                        <textarea class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  text-light"
-                                            style="height: 200px; background-color: #0d2735; " name="reply"
-                                            rows="4"> </textarea>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center pb-3">
-                                    <button type="submit" 
-                                        class="btn btn-outline-primary btn-icon-text ">
-                                        
-                                        SUBMIT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-    
-                    </form>
-    
-                </div>
-
-      </div>
-      
-    </div>
-  </div>
-  
- 
-  {% endfor %}
-
-
-  <script>
-   
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const rows = document.querySelectorAll("tr[data-href]");
-      rows.forEach(row => {
-        row.addEventListener("click", () => {
-          window.location.href = row.dataset.href;
-        });
-      });
-    });
-
-  </script>
-
-    <!-- modal js -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- end here -->
-
 
     
 

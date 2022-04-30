@@ -75,7 +75,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Request</h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'index'%}">Home</a></li>
             <li>Request</li>
           </ol>
         </div>
@@ -94,30 +94,34 @@
             </div>
         
                     <div class="row ">
+                      <form action="{% url 'sort' %}" method="post">
+                        {% csrf_token %}
                             <div class="col-md-4 mt-4">
                               
                                 <div class="d-flex">
                                 <label for=""></label>
-                                <input type="text" name="" id="" value=""
-                                       class="form-control" style="background-color: white;color: steelblue;">
-                                <button type="button" class="btn btn-outline-info text-steelblue" style="float: right;">Search</button>
+                              
+                                
+                                <input type="text" name="search" autocomplete="off" placeholder="Search names here..."
+                                       class="form-control" style="background-color: white;">
+                                <button type="submit" class="btn btn-outline-info text-steelblue" style="float: right;">Search</button>
                                 </div>
+                              </form>
                             </div>
                             </div>
                             
                     <div class="row mt-3" >
                                <div class="col-md-2">
-                                    <button class="btn btn-outline-info  w-100 mt-4" type="submit">
-                                    <a href="{% url 'sort' %}"> sort </a>
-                                  </button>
-                                
+                                     
+                          
                             </div>
                             <div class="col-md-2">
-                                
-                              <button class="btn btn-outline-info  w-100 mt-4" type="submit">
+                              <button class="btn btn-outline-info text-steelblue w-100 mt-4" type="submit">
                                 <a href="{% url 'show' %}"> show all </a>
                               </button>
+                                
                             </div>
+                           
                             <div class="col-md-2">
                             </div>
                             <div class="col-md-2">

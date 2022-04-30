@@ -94,6 +94,7 @@ class sales(models.Model):
 	amount = models.CharField(max_length=255)
 
 class contactus(models.Model):
+	user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
 	name = models.CharField(max_length=255)
 	email = models.EmailField(max_length=255)
 	subject = models.CharField(max_length=255)

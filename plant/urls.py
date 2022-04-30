@@ -23,6 +23,7 @@ urlpatterns = [
     re_path(r'^portfolio$', views.portfolio, name='portfolio'),
     re_path(r'^request$', views.request, name='request'),
     re_path(r'^contact$', views.contact, name='contact'),
+    re_path(r'^sendmessages$', views.sendmessages, name='sendmessages'),
     re_path(r'^addreq$', views.addreq, name='addreq'),
     re_path(r'^reqsave$', views.reqsave, name='reqsave'),
     re_path(r'^sort$', views.sort, name='sort'),

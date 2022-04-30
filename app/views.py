@@ -84,7 +84,6 @@ def reset_password(request):
             recipient_list = [email_id, ]
             send_mail(subject, message, email_from,
                       recipient_list, fail_silently=True)
-
             _user.save()
             msg_success = "Password Reset successfully check your mail new password"
             return render(request, 'pwd.html', {'msg_success': msg_success})
@@ -172,6 +171,18 @@ def contact(request):
     else:
         return redirect('/')
 
+def sendmessages(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=c_id)
+        var = contactus.objects.filter(user_id = c_id).order_by('-id')
+        return render(request,'sendmessages.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 def addreq(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -206,7 +217,8 @@ def reqsave(request):
                 req_details = s5,location = s6,category = s7,completion_date = s8,urgency = s9,user_id = c_id)
             ab.save()
             print(s7)
-            return render(request,'request.html')
+            msg_success = "Request added successfull"
+            return render(request, 'addreq.html', {'msg_success': msg_success})
         return render(request,'addreq.html',{'mem':mem})
     else:
         return redirect('/')
@@ -218,7 +230,10 @@ def sort(request):
         else:
             return redirect('/')
         mem = register.objects.filter(id=c_id)
-        return render(request,'sort.html',{'mem':mem})
+        if request.method == 'POST':
+            s1=request.POST.get('search')      
+            var = addrequest.objects.filter(name = s1).filter(user_id = c_id).order_by('-id')
+        return render(request,'sort.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -314,7 +329,8 @@ def owner_allotworkorder(request):
             print(g1,g3,g4,g2)
             work = givework( user_id = g1,work = g2,startdate = g3,enddate = g4)
             work.save()
-            m="Give work Successfully"
+            msg_success = "Added successfull"
+            return render(request, 'owner_allotworkorder.html', {'msg_success': msg_success})
         return render(request,'owner_allotworkorder.html',{'var':var,'mem':mem,'owner':owner})
     else:
         return redirect('/')
@@ -335,6 +351,8 @@ def owner_addvendors(request):
             v5 = request.POST['address']
             add = addvendors( name = v1,email = v2,phone = v3, product = v4,address = v5)
             add.save()
+            msg_success = "Added successfull"
+            return render(request, 'owner_addvendors.html', {'msg_success': msg_success})
         return render(request,'owner_addvendors.html',{'owner':owner})
     else:
         return redirect('/')
@@ -371,11 +389,11 @@ def owner_vendorsnewpayment(request):
             pay = payment( name = p1,date = p2, product = p3,quantity = p4,
                     accountno = p5,paymethod = p6, amount = p7)
             pay .save()
+            msg_success = "Added successfull"
+            return render(request, 'owner_vendorsnewpayment.html', {'msg_success': msg_success})
         return render(request,'owner_vendorsnewpayment.html',{'mem':mem,'owner':owner})
     else:
         return redirect('/')
-
-
 
 def owner_salesorder(request):
     if 'SAdm_id' in request.session:
@@ -465,6 +483,8 @@ def committee_updatestockdetails(request,id):
             s1.product= request.POST.get('product')
             s1.quantity = request.POST.get('quantity')
             s1.save()
+            msg_success = "Updated successfull"
+            return render(request, 'committee_updatestockdetails.html', {'msg_success': msg_success})
         return render(request,'committee_updatestockdetails.html',{'var':var,'mem1':mem1})
     else:
         return redirect('/')
@@ -481,6 +501,8 @@ def committee_updateworkstatus(request):
             w2 = request.POST['status']
             work = workstatus( date = w1,status = w2,user_id = s_id)
             work.save()
+            msg_success = "Updated successfull"
+            return render(request, 'committee_updateworkstatus.html', {'msg_success': msg_success})
         return render(request,'committee_updateworkstatus.html',{'mem1':mem1})
     else:
         return redirect('/')

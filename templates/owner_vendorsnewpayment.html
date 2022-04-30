@@ -127,7 +127,7 @@
                       <label for="date">Product</label>
                     </div>
                     <div class="col-md-9 form-group">
-                      <input type="text" name="product" class="form-control" id="date"  required>
+                      <input type="text" name="product" class="form-control" id="date" autocomplete="off" required>
                     </div>
                   </div>
                   <br>
@@ -136,7 +136,7 @@
                       <label for="date">Quantity</label>
                     </div>
                     <div class="col-md-9 form-group">
-                      <input type="text" name="quantity" class="form-control" id="date"  required>
+                      <input type="text" name="quantity" class="form-control" id="date" autocomplete="off"  required>
                     </div>
                   </div>
                   <br>
@@ -145,7 +145,7 @@
                       <label for="acntno">Account Number</label>
                     </div>
                     <div class="col-md-9 form-group">
-                        <input type="text" name="acntno" class="form-control" id="acntno"  required>
+                        <input type="text" name="acntno" class="form-control" id="acntno" autocomplete="off" required>
                     </div>
                   </div>
                   <br>
@@ -154,7 +154,7 @@
                       <label for="paymod">Pay Method</label>
                     </div>
                     <div class="col-md-9 form-group">
-                      <input type="text" name="paymod" class="form-control" id="paymod"  required>
+                      <input type="text" name="paymod" class="form-control" id="paymod" autocomplete="off" required>
                     </div>
                   </div>
                   <br>
@@ -164,7 +164,7 @@
                       <label for="amount">Amount</label>
                     </div>
                     <div class="col-md-9 form-group">
-                      <input type="text" name="amount" class="form-control" id="amount"  required>
+                      <input type="text" name="amount" class="form-control" id="amount" autocomplete="off" required>
                     </div>
                   </div>
                   
@@ -281,6 +281,33 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if msg_success %}
+<script>
+Swal.fire({
+    position: 'center',
+    icon: 'success',
+    text: '{{ msg_success }}',
+    showConfirmButton: false,
+    timer: 3000
+}).then(function () {
+    javascript: history.go(-2);
+})
+
+</script>
+{% endif %}
 
 </body>
 
