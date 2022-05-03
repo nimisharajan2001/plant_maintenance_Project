@@ -74,7 +74,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Contact</h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
             <li>Contact</li>
           </ol>
         </div>
@@ -136,22 +136,23 @@
           
               <div class="text-center"><button type="submit" class="btn btn-primary mt-3">Send Message</button></div>
             </form>
-            <div class="row mt-3" >
-    
+            <div class="row mt-3" >  
            <div class="col-md-4">
            </div>
-           <div class="col-md-4">
-           </div>
-          
            <div class="col-md-4">
             <a href="{% url 'sendmessages' %}">
-              <div class="btn" style="background-color: #0d2735; color: white;" >
+              <div class="btn" style="background-color: #0d2735; color: white; width: 150px; height: 40px;" >
                  Replays
               </div>
             </a> 
            </div>
+           <div class="col-md-4">
+           </div>
+           
+           
        </div>
-        
+       
+          
    </div>     
           </div>
 

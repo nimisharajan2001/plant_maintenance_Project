@@ -60,6 +60,7 @@ def registration(request):
         reg.password = request.POST['password']
         reg.cpassword = request.POST['cpassword']
         reg.email = request.POST['email']
+        reg.designation_id = 2
         reg.save()
         msg_success = "Registered successfully"
         return render(request, 'reg.html', {'msg_success': msg_success})
@@ -69,14 +70,13 @@ def registration(request):
 def reset_password(request):
     if request.method == "POST":
         email_id = request.POST.get('email')
-        # email_id = request.POST['email']
         access_user_data = register.objects.filter(
             email=email_id).exists()
         if access_user_data:
             _user = register.objects.filter(email=email_id)
             password = random.SystemRandom().randint(100000, 999999)
             print(password)
-            _user.password = password
+            _user.update(password = password)
             subject =' your authentication data updated'
             message = 'Password Reset Successfully\n\nYour login details are below\n\nUsername : ' + str(email_id) + '\n\nPassword : ' + str(password) + \
                 '\n\nYou can login this details\n\nNote: This is a system generated email, do not reply to this email id'
@@ -84,14 +84,15 @@ def reset_password(request):
             recipient_list = [email_id, ]
             send_mail(subject, message, email_from,
                       recipient_list, fail_silently=True)
-            _user.save()
+            # _user.save()
             msg_success = "Password Reset successfully check your mail new password"
             return render(request, 'pwd.html', {'msg_success': msg_success})
         else:
             msg_error = "This email does not exist  "
             return render(request, 'pwd.html', {'msg_error': msg_error})
-
     return render(request,'pwd.html')
+    # else:
+    #     return redirect('/')
 
 
 def pwd(request):
