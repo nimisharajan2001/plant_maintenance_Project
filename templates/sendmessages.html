@@ -55,7 +55,7 @@
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'services' %}">Services</a></li>
                 <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
+                <!-- <li><a href="{% url 'login' %}">Login</a></li> -->
                 <li><a href="{% url 'request' %}">Request</a></li>
                 <li><a class="active" href="{% url 'contact' %}">Contact Us</a></li>
             </ul>
@@ -104,7 +104,7 @@
                           </thead>
                           <tbody>
                             {% for i in var %}
-                                {% if i.replay != NULL %}
+                                <!-- {% if i.replay != NULL %} -->
                                     <tr>
                                         <td>{{forloop.counter}}</td>
                                         <td>{{i.name}}</td>
@@ -113,7 +113,7 @@
                                         <td>{{i.message}}</td>
                                         <td>{{i.replay}}</td>
                                     </tr>
-                                {% endif %}
+                                <!-- {% endif %} -->
                             {% endfor %}
                       </tbody>
                     </table>

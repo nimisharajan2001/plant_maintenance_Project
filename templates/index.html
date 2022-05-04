@@ -50,11 +50,11 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="active " href="index.html">Home</a></li>
+          <li><a class="active " href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'services' %}">Services</a></li>
           <li><a href="{% url 'portfolio' %}">Gallery</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
+          <!-- <li><a href="{% url 'login' %}">Login</a></li> -->
           <li><a href="{% url 'request' %}">Request</a></li>
           <li><a href="{% url 'contact' %}">Contact Us</a></li>
         </ul>

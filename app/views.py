@@ -60,7 +60,6 @@ def registration(request):
         reg.password = request.POST['password']
         reg.cpassword = request.POST['cpassword']
         reg.email = request.POST['email']
-        reg.designation_id = 2
         reg.save()
         msg_success = "Registered successfully"
         return render(request, 'reg.html', {'msg_success': msg_success})
@@ -166,7 +165,7 @@ def contact(request):
             c2 = request.POST['email']
             c3 = request.POST['subject']
             c4 = request.POST['message']
-            cnt = contactus( name = c1,email = c2,subject = c3,message = c4)
+            cnt = contactus( name = c1,email = c2,subject = c3,message = c4,user_id = c_id)
             cnt.save()
         return render(request,'contact.html',{'mem':mem})
     else:
@@ -390,7 +389,7 @@ def owner_vendorsnewpayment(request):
             pay = payment( name = p1,date = p2, product = p3,quantity = p4,
                     accountno = p5,paymethod = p6, amount = p7)
             pay .save()
-            msg_success = "Added successfull"
+            msg_success = "Payment Added successfull"
             return render(request, 'owner_vendorsnewpayment.html', {'msg_success': msg_success})
         return render(request,'owner_vendorsnewpayment.html',{'mem':mem,'owner':owner})
     else:
