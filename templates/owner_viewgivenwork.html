@@ -52,11 +52,11 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
-          <li><a  href="{% url 'owner_addperson' %}">Add Person</a></li>
-          <li><a  class="active " href="{% url 'owner_allotworkorder' %}">Allot work order</a></li>
+          <li><a href="{% url 'owner_addperson' %}">Add Person</a></li>
+          <li><a href="{% url 'owner_allotworkorder' %}">Allot work order</a></li>
           <li><a href="{% url 'owner_addvendors' %}">Add Vendors</a></li>
           <li><a href="{% url 'owner_purchaseorder' %}">Purchase order</a></li>
-          <li><a href="{% url 'owner_salesorder' %}">View Sales order</a></li>
+          <li><a class="active" href="{% url 'owner_salesorder' %}">View Sales order</a></li>
           <li><a href="{% url 'owner_reports' %}">Reports</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -72,10 +72,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Allot Work Order</h2>
+          <h2>Work Orders</h2>
           <ol>
-            <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
-            <li>Allot Work Order</li>
+            <li><a href="{% url 'owner_allotworkorder' %}">Allot Work Order</a></li>
+            <li>Work Orders</li>
           </ol>
         </div>
 
@@ -88,131 +88,58 @@
         <div class="row">
             <div class="col-md-12">
               <div class="content-panel">
-                <h4><i class="fa fa-angle-right"></i> Work Orders</h4>               
+                <h4 class="mb-3"><i class="fa fa-angle-right"></i> Work Orders</h4>
+                
                 <table class="table table-responsive table-bordered">
                   <thead>
                     <tr>
                       <th>SlNo</th>
                       <th>Name</th>
-                      <th>Date</th>
-                      <th>Phone</th>
-                      <th>Category</th>
-                      <th>Completion Date</th>
+                      <th>Work</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for i in var %}
                     <tr>
                       <td>{{forloop.counter}}</td>
-                      <td>{{i.name}}</td>
-                      <td>{{i.Date_Time}}</td>
-                      <td>{{i.phone}}</td>
-                      <td>{{i.category}}</td>
-                      <td>{{i.completion_date}}</td>
+                      <td>{{i.user}}</td>
+                      <td>{{i.work}}</td>
+                      <td>{{i.startdate|date:"d-m-Y"}}</td>
+                      <td>{{i.enddate|date:"d-m-Y"}}</td>
+                      <td>{{i.status}}</td>
                     </tr>
                     {% endfor %}
                     <!-- <tr>
                       <td>1</td>
                       <td>Aswin</td>
                       <td>01-04-2022</td>
-                      <td>9865214073</td>
-                      <td>Repairing</td>
-                      <td>10-04-2022</td>
+                      <td>abc</td>
+                      <td>500</td>
                     </tr>
                     <tr>
                       <td>2</td>
                       <td>Rahul</td>
                       <td>21-03-2022</td>
-                      <td>8985630210</td>
-                      <td>Repairing</td>
-                      <td>24-03-2022</td>
+                      <td>cbh</td>
+                      <td>740</td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Soorya</td>
                       <td>18-03-2022</td>
-                      <td>7019632201</td>
-                      <td>Repairing</td>
-                      <td>30-04-2022</td>
+                      <td>ghf</td>
+                      <td>460</td>
                     </tr> -->
                   </tbody>
                 </table>
               </div>
             </div>
         </div>
-        <div class="row">
-          <div class="col-lg-10">
-            <h4 class="mt-5">Give Work</h4>
-              <form action="{% url 'owner_allotworkorder' %}" method="post"  class="shadow p-3 bg-white">
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col-md-2 form-group">
-                    <label for="first_name">Name</label>
-                  </div>
-                  <div class="col-md-10 form-group">
-                    <select class="form-control"  name="name" id="name" required>
-                      <option selected="true" disabled="disabled" value="">-Not Selected-</option>
-                      {% for n in mem %}
-                      <option value="{{n.id}}">{{n.firstname}}</option>
-                      {% endfor %}
-                    </select>           
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-md-2 form-group">
-                    <label for="work">Work</label>
-                  </div>
-                  <div class="col-md-10 form-group">
-                    <textarea class="form-control" rows="2" name="work" autocomplete="off"></textarea>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-md-2 form-group">
-                    <label for="start">Start Date</label>
-                  </div>
-                  <div class="col-md-10 form-group">
-                    <input type="date" name="start" class="form-control" id="start"  required>
-                  </div>
-                </div>
-                <br>
-                <div class="row">
-                  <div class="col-md-2 form-group">
-                    <label for="end">End Date</label>
-                  </div>
-                  <div class="col-md-10 form-group">
-                    <input type="date" name="end" class="form-control" id="end"  required>
-                  </div>
-                </div>
-                
-                <br>
-                <div class="text-center mt-3"><button type="submit"  class="btn btn-primary">Save</button></div>             
-              </form>
-            </div>
-
-      </div>
-      <div class="row mt-3" >
-        <div class="col-md-2">
-
-     </div>
-     <div class="col-md-2">
-     </div>
-     <div class="col-md-2">
-     </div>
-     <div class="col-md-2">
-     </div>
-     
-     <div class="col-md-2">
-
-         <button class="btn btn-outline-info rounded-pill w-100 mt-4" type="submit" id="one">
-           <a href="{% url 'owner_viewgivework' %}"> View Given Work </a>
-         </button>
-     </div>
- </div>
-
-
         
+
       </div>
     </section><!-- End Contact Section -->
 
@@ -318,35 +245,6 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{% if msg_success %}
-<script>
-Swal.fire({
-    position: 'center',
-    icon: 'success',
-    text: '{{ msg_success }}',
-    showConfirmButton: false,
-    timer: 3000
-}).then(function () {
-    javascript: history.go(-2);
-})
-
-</script>
-{% endif %}
-
 
 </body>
 

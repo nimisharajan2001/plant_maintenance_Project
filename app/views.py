@@ -142,6 +142,18 @@ def portfolio(request):
     else:
         return redirect('/')
 
+def portfolio_details(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=c_id)
+        return render(request,'portfolio-details.html',{'mem':mem})
+    else:
+        return redirect('/')
+    
+
 def request(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -332,6 +344,18 @@ def owner_allotworkorder(request):
             msg_success = "Added successfull"
             return render(request, 'owner_allotworkorder.html', {'msg_success': msg_success})
         return render(request,'owner_allotworkorder.html',{'var':var,'mem':mem,'owner':owner})
+    else:
+        return redirect('/')
+
+def owner_viewgivework(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        owner = register.objects.filter(id=SAdm_id)
+        var = givework.objects.all().order_by('-id')
+        return render(request,'owner_viewgivenwork.html',{'var':var,'owner':owner})
     else:
         return redirect('/')
 

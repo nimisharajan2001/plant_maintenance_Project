@@ -117,7 +117,11 @@
                                     <i class="mdi mdi-close"></i>&nbsp; Reply
                             </div>
                             {% else %}
-                            {{i.replay}}
+                            <a href="">
+                              <div class="btn btn-outline-success" data-toggle="modal"
+                                  data-target="#myModal2{{i.id}}"></a>
+                                  <i class="mdi mdi-close"></i>&nbsp; Replyed
+                          </div>
                             {% endif %}
                         </td>
                     </tr>
@@ -185,6 +189,55 @@
                                         SUBMIT
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+    
+                    </form>
+    
+                </div>
+
+      </div>
+      
+    </div>
+  </div>
+  
+ 
+  {% endfor %}
+
+
+
+      
+{% for i in var %}
+<div class="modal fade" id="myModal2{{i.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" style="color: #0d2735;">Reply</h4>
+            <button type="button" class="close" data-dismiss="modal" style="color: white; background-color: #0d2735;">&times;</button>
+        </div>
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row p-3">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+                                        <textarea class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  text-light"
+                                            style="height: 200px; background-color: #0d2735; " name="reply"
+                                            rows="4"> {{i.replay}}</textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center pb-3">
+                                    <button type="submit" 
+                                        class="btn btn-outline-primary btn-icon-text ">
+                                        
+                                        SUBMIT
+                                    </button>
+                                </div> -->
                             </div>
                         </div>
     
