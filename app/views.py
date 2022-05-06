@@ -75,7 +75,7 @@ def reset_password(request):
             _user = register.objects.filter(email=email_id)
             password = random.SystemRandom().randint(100000, 999999)
             print(password)
-            _user.update(password = password)
+            # _user.update(password = password)
             subject =' your authentication data updated'
             message = 'Password Reset Successfully\n\nYour login details are below\n\nUsername : ' + str(email_id) + '\n\nPassword : ' + str(password) + \
                 '\n\nYou can login this details\n\nNote: This is a system generated email, do not reply to this email id'
@@ -83,6 +83,7 @@ def reset_password(request):
             recipient_list = [email_id, ]
             send_mail(subject, message, email_from,
                       recipient_list, fail_silently=True)
+            _user.update(password = password)
             # _user.save()
             msg_success = "Password Reset successfully check your mail new password"
             return render(request, 'pwd.html', {'msg_success': msg_success})

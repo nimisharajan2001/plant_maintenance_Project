@@ -89,8 +89,7 @@
             <div class="row">
                 <div class="col-md-12">
                   <div class="content-panel">
-                    <h4 class="mb-3"><i class="fa fa-angle-right"></i> Packing Details</h4>
-                    
+                    <h4 class="mb-3"><i class="fa fa-angle-right"></i> Messages</h4>                   
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr>
@@ -104,7 +103,7 @@
                           </thead>
                           <tbody>
                             {% for i in var %}
-                                <!-- {% if i.replay != NULL %} -->
+                                {% if i.replay != NULL %}
                                     <tr>
                                         <td>{{forloop.counter}}</td>
                                         <td>{{i.name}}</td>
@@ -117,7 +116,7 @@
                                               <i class="mdi mdi-close"></i>&nbsp; Reply
                                       </div></td>
                                     </tr>
-                                <!-- {% endif %} -->
+                                {% endif %}
                             {% endfor %}
                       </tbody>
                     </table>
