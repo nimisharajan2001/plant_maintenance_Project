@@ -265,6 +265,37 @@ def show(request):
 def staff(request):
 	return render(request, 'tempowner/staff.html')     
 
+def change_password(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=c_id)      
+        return render(request,'change_password.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def change_password_save(request,id):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=c_id)
+        if request.method == 'POST':
+            c1 = register.objects.get(id=id)
+            c1.password= request.POST.get('password')
+            c1.cpassword = request.POST.get('cpassword')
+            c1.save()
+            msg_success = "Password has been changed successfully"
+            return render(request, 'change_password.html', {'msg_success': msg_success})
+        else:
+            msg_error = "Password does not match"
+            return render(request, 'change_password.html', {'msg_error': msg_error})
+    else:
+        return redirect('/')
+
 #-----------------Owner Module--------------------
 
 def owner_dashboard(request):
@@ -303,6 +334,23 @@ def owner_messages_replay(request,id):
         return redirect('owner_messages')
     else:
         return redirect('/')      
+
+
+def owner_change_password(request): 
+        if request.method == 'POST':
+            newPassword = request.POST.get('password')
+            confirmPassword = request.POST.get('cpassword')
+            user = User.objects.get(is_superuser=True)
+            if newPassword == confirmPassword:
+                user.set_password(newPassword)
+                user.save()
+                msg_success = "Password has been changed successfully"
+                return render(request, 'owner_changepassword.html', {'msg_success': msg_success})
+            else:
+                msg_error = "Password does not match"
+                return render(request, 'owner_changepassword.html', {'msg_error': msg_error})
+        return render(request,'owner_changepassword.html')
+
 
 def owner_addperson(request):
     if 'SAdm_id' in request.session:
@@ -466,7 +514,7 @@ def committe_acceptwork(request,id):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=s_id)
-        al = givework.objects.filter(id=id).update(status ='Approved')     
+        al = givework.objects.filter(id=id).update(status ='Accepted')     
         return redirect('committee_viewworkorder')
     else:
         return redirect('/')
@@ -553,5 +601,36 @@ def committee_repairingdetails(request):
         mem1 = register.objects.filter(id=s_id)
         var = repairing.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'committee_repairingdetails.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def committee_change_password(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)      
+        return render(request,'change_password.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def change_password_save(request,id):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == 'POST':
+            c1 = register.objects.get(id=id)
+            c1.password= request.POST.get('password')
+            c1.cpassword = request.POST.get('cpassword')
+            c1.save()
+            msg_success = "Password has been changed successfully"
+            return render(request, 'change_password.html', {'msg_success': msg_success})
+        else:
+            msg_error = "Password does not match"
+            return render(request, 'change_password.html', {'msg_error': msg_error})
     else:
         return redirect('/')

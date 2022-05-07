@@ -56,6 +56,7 @@
           <li><a href="{% url 'committee_updateworkstatus' %}">Update work Status</a></li>
           <li><a href="{% url 'committee_packingdetails' %}">Packing Details</a></li>
           <li><a href="{% url 'committee_repairingdetails' %}">Repairing Details</a></li>
+          <li><a href="{% url 'committee_change_password' %}">Change Password</a></li>
           
         </ul>
         <i class="fa fa-bars bi bi-list mobile-nav-toggle"></i>
@@ -109,7 +110,7 @@
                       <td>{% if i.status == NULL %}
                         <a href="{% url 'committe_acceptwork'  i.id%}">
                           <div class="btn btn-outline-success" >
-                              <i class="mdi mdi-check"></i>&nbsp; Approve
+                              <i class="mdi mdi-check"></i>&nbsp; Accept
                           </div>
                       </a> 
                       <a href="{% url 'committe_rejectwork'  i.id%}">
@@ -117,7 +118,7 @@
                             <i class="mdi mdi-check"></i>&nbsp; Reject
                         </div>
                       </a> 
-                      {% elif i.status == "Approved" %}
+                      {% elif i.status == "Accepted" %}
                        <div class="btn btn-outline-success" >
                         <i class="mdi mdi-check"></i>&nbsp; {{i.status}}
                       </div>

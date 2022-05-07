@@ -29,10 +29,13 @@ urlpatterns = [
     re_path(r'^reqsave$', views.reqsave, name='reqsave'),
     re_path(r'^sort$', views.sort, name='sort'),
     re_path(r'^show$', views.show, name='show'),
+    re_path(r'^change_password$', views.change_password, name='change_password'),
+    re_path(r'^change_password_save/(?P<id>\d+)$', views.change_password_save, name='change_password_save'),
     re_path(r'^staff$', views.staff, name='staff'),
     
     #-----------------Owner Module--------------------
     re_path(r'^owner_dashboard$', views.owner_dashboard, name='owner_dashboard'),
+    re_path(r'^owner_change_password$', views.owner_change_password, name='owner_change_password'),
     re_path(r'^owner_messages$', views.owner_messages, name='owner_messages'),
     re_path(r'^owner_messages_replay/(?P<id>\d+)$', views.owner_messages_replay,name='owner_messages_replay'),
     re_path(r'^owner_addperson$', views.owner_addperson, name='owner_addperson'),
@@ -50,6 +53,7 @@ urlpatterns = [
                   name='committe_acceptwork'),
     re_path(r'^committe_rejectwork/(?P<id>\d+)/$', views.committe_rejectwork,
                   name='committe_rejectwork'),
+    re_path(r'^committee_change_password$', views.committee_change_password, name='committee_change_password'),
     re_path(r'^committee_stockdetails$', views.committee_stockdetails, name='committee_stockdetails'),
     re_path(r'^committee_updatestockdetails/(?P<id>\d+)$', views.committee_updatestockdetails, name='committee_updatestockdetails'),
     re_path(r'^committee_updateworkstatus$', views.committee_updateworkstatus, name='committee_updateworkstatus'),
